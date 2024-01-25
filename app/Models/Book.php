@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Testing\Constraints\SoftDeletedInDatabase;
+
 class Book extends Model
 {
     use HasFactory;
@@ -17,7 +17,14 @@ class Book extends Model
         'price',
         'avalable',
     ];
-    public function store(){
+    public function store(){ //一對多的逆向
         return $this->belongsTo(Store::class);
     }
+
+    public function authors(){ // 多對多 book->authors
+        return $this->belongsToMany(Author::class);
+    }
+    // 產生的第3張表格 以英文排序 預設 author_book
+    // 需自行建立 table author_book
+    // author_id 、 book_id
 }

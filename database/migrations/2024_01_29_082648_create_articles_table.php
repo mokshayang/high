@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            // 舉例
-            $table->enum('state',['draft','published']);
+            // 舉例 : 狀態 [草稿, 發表] 預設:(草稿)
+            $table->enum('state',['draft','published'])->default('draft');
             // 軟刪除
             $table->softDeletes();
             // 要連接外鍵的 user_id

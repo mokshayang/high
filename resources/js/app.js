@@ -1,6 +1,6 @@
 import './bootstrap';
 // 導入現有的CSS 別人寫好的
-// import '../css/app.css';
+import '../css/app.css';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';

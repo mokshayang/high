@@ -10,15 +10,19 @@ class ArticlesController extends Controller
     // 也可以用 only('....');
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
+        $this->middleware('auth')->except(['index','show']);
     }
 
-    public function index(){
+    public function index(){ //列表
         // 依照更新時間 :
         // $articles = Article::orderBy('updated_at','desc')->get();
         // 分頁功能 :
         $articles = Article::orderBy('updated_at','desc')->paginate(3);
         return view('articles/index',['articles'=>$articles]);
+    }
+    public function show($id){ // 單筆資料
+        $article = Article::find($id);
+        return view('articles.show',['article'=>$article]);
     }
     public function create(){
         return view('articles.create');
@@ -67,4 +71,5 @@ class ArticlesController extends Controller
         $article->update($content);
         return redirect()->route('root')->with('notice','文章更新成功');
     }
+
 }

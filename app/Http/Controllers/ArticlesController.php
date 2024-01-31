@@ -14,7 +14,10 @@ class ArticlesController extends Controller
     }
 
     public function index(){
-        $articles = Article::all();
+        // 依照更新時間 :
+        // $articles = Article::orderBy('updated_at','desc')->get();
+        // 分頁功能 :
+        $articles = Article::orderBy('updated_at','desc')->paginate(3);
         return view('articles/index',['articles'=>$articles]);
     }
     public function create(){
@@ -34,12 +37,34 @@ class ArticlesController extends Controller
         auth()->user()->articles()->create($content);
         // 並重新定向到跟目錄
         // with 會塞一個 session 值 key,value 對應到 layout 判斷:
-
+        // 處理使return redirect()->route('root')->with('notice','文章新增成功');
+        return redirect()->route('root')->with('notice','文章新增成功');
     // } else {
-        // 處理使return redirect()->route('root')->with('notice','文章新增成功');用者未驗證的情況
+        // 用者未驗證的情況
         // 可以將其重新導向到登錄頁面或執行其他動作
         // 返回登入頁面
     //     return redirect()->route('login'); // 根據應用程式邏輯進行調整
     // }
+    }
+    public function edit($id){
+        // 這樣不認識主人(不認識登入的帳號)
+        // $article = Article::find($id);
+        // 下方是透過使用者的角度
+        $article = auth()->user()->articles->find($id);
+        return view('articles.edit',['article'=>$article]);
+    }
+
+    // 同 function Store()  不需要 view 頁面
+    // 資料提交後就可以了
+    public function update(Request $request,$id){
+        $article = auth()->user()->articles->find($id);
+
+        $content = $request->validate([
+            'title' => 'required',
+            'content' => 'required|min:10',
+        ]);
+        //寫入資料
+        $article->update($content);
+        return redirect()->route('root')->with('notice','文章更新成功');
     }
 }

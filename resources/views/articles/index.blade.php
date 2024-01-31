@@ -11,6 +11,12 @@
                 {{ $article->created_at }} 由 {{ $article->user->name }} 分享
                 {{-- {{dd($article)}} --}}
             </p>
+            {{-- <a href="{{ route('articles.edit',['article'=>$article->id]) }}">編輯</a> --}}
+            {{-- <a href="{{ route('articles.edit',['article'=>$article]) }}">編輯</a> --}}
+            <a href="{{ route('articles.edit', $article) }}">編輯</a>
+            {{-- 上面三行 在 laravel 結果一樣 laravel 會幫妳處理 --}}
         </div>
     @endforeach
+        {{-- {{ $articles->links() }} --}}
+        {{ $articles->links() }}
 @endsection

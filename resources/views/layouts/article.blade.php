@@ -9,13 +9,14 @@
 </head>
 <body>
 <main class="m-4">
-    {{-- 快閃訊息 出現後 就會砍掉 session 對應 Controller show()的->with('notice','新增文章成功') --}}
+    @yield('main')
+    {{-- 快閃訊息 出現後 就會砍掉 session
+        對應 Controller show()的->with('notice','新增文章成功') --}}
     @if(session()->has('notice'))
     <div class="bg-pink-300 px-3 py-2 rounded">
         {{ session()->get('notice')}}
     </div>
     @endif
-    @yield('main')
 </main>
 @vite('resources/js/app.js')
 </body>

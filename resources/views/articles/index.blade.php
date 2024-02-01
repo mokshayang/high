@@ -11,6 +11,7 @@
 
             </h2>
             <p>
+                {{-- 下方這樣會有1+N問題  過多去資料庫查詢 key world Eager Loading --}}
                 {{ $article->created_at }} 由 {{ $article->user->name }} 分享
                 {{-- {{dd($article)}} --}}
             </p>

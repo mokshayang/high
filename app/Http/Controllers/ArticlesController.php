@@ -22,7 +22,7 @@ class ArticlesController extends Controller
         // with('user') 減省sql 負擔
         // => select * from `users` where `users`.`id` in (1)
         // 原本 : select * from 'users' where 'users' 'id' =1 limig 1
-        $articles = Article::with('user')->orderBy('updated_at', 'desc')->paginate(3);
+        $articles = Article::with('user')->orderBy('updated_at', 'desc')->paginate(5);
         return view('articles/index', ['articles' => $articles]);
     }
     public function show($id)
@@ -109,7 +109,8 @@ class ArticlesController extends Controller
             $article->delete();
             return redirect()->route('root')->with('notice', '刪除文章成功');
         } else {
-            // 如果找不到文章，可以進行適當的處理，例如重新導向到文章列表頁面或顯示錯誤訊息
+            // 如果找不到文章，可以進行適當的處理，
+            // 例如重新導向到文章列表頁面或顯示錯誤訊息
             return redirect()->route('root')->with('notice', '您無權刪除他人的文章。');
         }
 

@@ -29,5 +29,6 @@
         </div>
     @endforeach
         {{-- {{ $articles->links() }} --}}
+        {{-- 分頁功能 --   ->paginate(5); --}}
         {{ $articles->links() }}
 @endsection

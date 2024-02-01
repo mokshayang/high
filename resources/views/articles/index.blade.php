@@ -14,10 +14,17 @@
                 {{ $article->created_at }} 由 {{ $article->user->name }} 分享
                 {{-- {{dd($article)}} --}}
             </p>
-            {{-- <a href="{{ route('articles.edit',['article'=>$article->id]) }}">編輯</a> --}}
-            {{-- <a href="{{ route('articles.edit',['article'=>$article]) }}">編輯</a> --}}
-            <a href="{{ route('articles.edit', $article) }}">編輯</a>
-            {{-- 上面三行 在 laravel 結果一樣 laravel 會幫妳處理 --}}
+            <div class="flex">
+                {{-- <a href="{{ route('articles.edit',['article'=>$article->id]) }}">編輯</a> --}}
+                {{-- <a href="{{ route('articles.edit',['article'=>$article]) }}">編輯</a> --}}
+                <a href="{{ route('articles.edit', $article) }}" class="mr-3">編輯</a>
+                {{-- 上面三行 在 laravel 結果一樣 laravel 會幫妳處理 --}}
+                <form action="{{ route('articles.destroy', $article) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="px-2 bg-red-500 text-red-200 rounded">刪除</button>
+                </form>
+            </div>
         </div>
     @endforeach
         {{-- {{ $articles->links() }} --}}

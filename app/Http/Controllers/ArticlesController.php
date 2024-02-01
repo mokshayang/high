@@ -27,7 +27,7 @@ class ArticlesController extends Controller
     public function create(){
         return view('articles.create');
     }
-    // form 表單請求 :
+    // form 表單請求 : articles.crerate 裡面的form 送到 store下面
     public function store(Request $request){
         // validate 證實
         // 檢查使用者是否已驗證
@@ -71,5 +71,12 @@ class ArticlesController extends Controller
         $article->update($content);
         return redirect()->route('root')->with('notice','文章更新成功');
     }
+
+    function destroy($id){
+        // user()->articles 一對多  調用文章
+        $article = auth()->user()->articles->find($id);
+        $article->delete();
+        return redirect()->route('root')->with('notice','刪除文章');
+        }
 
 }
